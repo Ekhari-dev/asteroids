@@ -14,18 +14,27 @@ def main ():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    
+
+    #Groups
+    updateable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updateable, drawable)
     player = Player(x, y)
 
     #game loop
-    number = 3
-    while number != 0:
+    running = True
+    while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         screen.fill('black')
         
-        player.update(dt)
-        player.draw(screen)
+        updateable.update(dt)
+        
+        for item in drawable:
+            item.draw(screen)
         
         pygame.display.flip()
 
